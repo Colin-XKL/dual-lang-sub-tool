@@ -9,6 +9,8 @@ packages = [{include = "dual_lang_sub_tool"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+srt = "^3.5.3"
+srtmerge = "^1.0"
 
 
 [build-system]
