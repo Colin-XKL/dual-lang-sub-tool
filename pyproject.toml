@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "dual-lang-sub-tool"
 version = "0.1.0"
-description = ""
+description = "A tool for make and fine-tune bilingual subtitles."
 authors = ["colin <Colin_XKL@outlook.com>"]
 license = "MIT"
 readme = "README.md"
