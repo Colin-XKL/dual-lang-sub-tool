@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "dual-lang-sub-tool"
+version = "0.1.0"
+description = ""
+authors = ["colin <Colin_XKL@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "dual_lang_sub_tool"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
