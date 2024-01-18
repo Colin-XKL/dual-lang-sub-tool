@@ -65,11 +65,11 @@ def srt_merge(srt_a, srt_b, media_name, output_dir: str):
 
 if __name__ == "__main__":
     print("processing for all media file in current dir...")
-    primary_sub_conf = {
+    primary_sub_conf = {  # first line
         "track_num": 2,
         "lang_code": "eng",
     }
-    secondary_sub_conf = {
+    secondary_sub_conf = { # second line
         "track_num": 3,
         "lang_code": "chi"
     }
