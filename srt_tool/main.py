@@ -72,6 +72,7 @@ default_whitelist_extension_list = ["mkv","mp4"]
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process media files in a specified directory.")
     parser.add_argument("target_dir", type=str, help="Directory containing media files to process.")
+    parser.add_argument("--check", action="store_true", help="Check a random media file in the target directory.")
     args = parser.parse_args()
 
     config_path = os.path.join(args.target_dir, "dual_sub_conf.yaml")
