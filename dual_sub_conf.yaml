@@ -1,10 +1,12 @@
-primary_sub_conf:
+
+first_line_sub:
+  track_num: 24
+  lang_code: "chi" # 仅标识字幕语言使用
+
+sencond_line_sub: 
   track_num: 2
-  lang_code: "eng"
+  lang_code: "eng" # 仅标识字幕语言使用
 
 file_extensions:
   - "mkv"
   - "mp4"
-secondary_sub_conf:
-  track_num: 3
-  lang_code: "chi"
