@@ -1,9 +1,9 @@
 import srt
-
 import os
 import subprocess
 from srtmerge import srtmerge
 import argparse
+import yaml
 
 
 def replace_newlines_with_spaces(file_path):
@@ -69,15 +69,14 @@ if __name__ == "__main__":
     parser.add_argument("target_dir", type=str, help="Directory containing media files to process.")
     args = parser.parse_args()
 
+    config_path = os.path.join(args.target_dir, "config.yaml")
+    with open(config_path, 'r') as file:
+        config = yaml.safe_load(file)
+
+    primary_sub_conf = config['primary_sub_conf']
+    secondary_sub_conf = config['secondary_sub_conf']
+
     print(f"processing for all media file in {args.target_dir}...")
-    primary_sub_conf = {  # first line
-        "track_num": 2,
-        "lang_code": "eng",
-    }
-    secondary_sub_conf = { # second line
-        "track_num": 3,
-        "lang_code": "chi"
-    }
     target_dir = args.target_dir
     tmp_dir = "/tmp/"
     output_dir = os.getcwd()

@@ -1,0 +1,7 @@
+primary_sub_conf:
+  track_num: 2
+  lang_code: "eng"
+
+secondary_sub_conf:
+  track_num: 3
+  lang_code: "chi"
