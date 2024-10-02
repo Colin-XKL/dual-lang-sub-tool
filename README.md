@@ -12,6 +12,14 @@ the code to update the id, the run it , and it would automaticaly do the extract
 将main.py 放到mkv/mp4资源所在文件夹, 使用ffmpeg -i 确定要提取的stream 的id , 填入py文件中, 执行即可. 会自动提取指定的字幕并合并,
 输出到原文件同目录
 
+
+Docker Image: (amd64 & arm64 support)
+
+- ghcr.io/colin-xkl/dual-lang-sub-tool
+- colinxkl/dual-lang-sub-tool
+
+
+
 ## Example
 
 step 1: 使用ffmpeg -i 视频文件路径, 来查看这些文件是否内建了字幕,以及它们对应的stream id.
@@ -45,7 +53,7 @@ step 1: 使用ffmpeg -i 视频文件路径, 来查看这些文件是否内建了
 如果你不方便或不想安装ffmpeg, 可以使用本项目对应的docker镜像, 其内置有ffmpeg工具. 使用方式为
 ``` bash
 cd /media/tvshow/Loki_S02 # 替换为你要处理的视频文件目录
-sudo docker run -it --rm -v ./:/media:ro dual-sub-tool:dev dual_sub_tool --check /media
+sudo docker run -it --rm -v ./:/media:ro colinxkl/dual-lang-sub-tool dual_sub_tool --check /media
 ```
 
 step 2: 在视频文件同目录下, 新建一个文本文件, 名为`dual_sub_conf.yaml`. 仓库根目录有个示例. 格式如下:
@@ -66,7 +74,7 @@ file_extensions:
 step 3: 执行命令
 ```bash
 cd /media/tvshow/Loki_S02 # 替换为你要处理的视频文件目录
-sudo docker run -it --rm -v ./:/media dual-sub-tool:dev dual_sub_tool /media 
+sudo docker run -it --rm -v ./:/media colinxkl/dual-lang-sub-tool dual_sub_tool /media 
 ```
 
 step 4: 完成, 在目标文件夹下你应该能看到生成的srt文件, 选择性检查下, 确认没有问题后, 你就可以开始享受你的资源了 😎
