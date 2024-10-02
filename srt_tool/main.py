@@ -3,6 +3,7 @@ import srt
 import os
 import subprocess
 from srtmerge import srtmerge
+import argparse
 
 
 def replace_newlines_with_spaces(file_path):
@@ -64,7 +65,11 @@ def srt_merge(srt_a, srt_b, media_name, output_dir: str):
 
 
 if __name__ == "__main__":
-    print("processing for all media file in current dir...")
+    parser = argparse.ArgumentParser(description="Process media files in a specified directory.")
+    parser.add_argument("target_dir", type=str, help="Directory containing media files to process.")
+    args = parser.parse_args()
+
+    print(f"processing for all media file in {args.target_dir}...")
     primary_sub_conf = {  # first line
         "track_num": 2,
         "lang_code": "eng",
@@ -73,7 +78,7 @@ if __name__ == "__main__":
         "track_num": 3,
         "lang_code": "chi"
     }
-    target_dir = os.getcwd()
+    target_dir = args.target_dir
     tmp_dir = "/tmp/"
     output_dir = os.getcwd()
     media_files = os.listdir(target_dir)
