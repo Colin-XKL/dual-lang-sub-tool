@@ -93,6 +93,21 @@ if __name__ == "__main__":
         print("Missing 'first_line_sub' or 'sencond_line_sub' in the YAML file.")
         exit(1)
 
+    if args.check:
+        media_files = [f for f in os.listdir(args.target_dir) if any(f.endswith(ext) for ext in file_extensions)]
+        if not media_files:
+            print("No media files found in the target directory.")
+            exit(1)
+        random_media = random.choice(media_files)
+        random_media_path = os.path.join(args.target_dir, random_media)
+        try:
+            result = subprocess.run(["ffmpeg", "-i", random_media_path], capture_output=True, text=True, check=True)
+            print(result.stdout)
+        except subprocess.CalledProcessError as e:
+            print(f"Error executing ffmpeg command: {e}")
+            exit(1)
+        exit(0)
+
     print(f"processing for all media file in [{args.target_dir}]  ...")
     target_dir = args.target_dir
     tmp_dir = "/tmp/"
