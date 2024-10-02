@@ -87,8 +87,8 @@ if __name__ == "__main__":
         print(f"Config file not found: {config_path}")
         exit(1)
 
-    primary_sub_conf = config.get('sencond_line_sub')
-    secondary_sub_conf = config.get('first_line_sub')
+    primary_sub_conf =config.get('first_line_sub')
+    secondary_sub_conf = config.get('sencond_line_sub')
     file_extensions = config.get('file_extensions', default_whitelist_extension_list)
     if not primary_sub_conf or not secondary_sub_conf:
         print("Missing 'first_line_sub' or 'sencond_line_sub' in the YAML file.")
@@ -101,18 +101,14 @@ if __name__ == "__main__":
             exit(1)
         random_media = random.choice(media_files)
         random_media_path = os.path.join(args.target_dir, random_media)
-        try:
-            result = subprocess.run(["ffmpeg", "-i", random_media_path], capture_output=True, text=True, check=True)
-            print(result.stdout)
-        except subprocess.CalledProcessError as e:
-            print(f"Error executing ffmpeg command: {e}")
-            exit(1)
+
+        subprocess.run(["ffmpeg", "-i", random_media_path], check=False)
         exit(0)
 
     print(f"processing for all media file in [{args.target_dir}]  ...")
     target_dir = args.target_dir
     tmp_dir = "/tmp/"
-    output_dir = os.getcwd()
+    output_dir = target_dir
     media_files = os.listdir(target_dir)
     for media in media_files:
         if not any(media.endswith(ext) for ext in file_extensions):
