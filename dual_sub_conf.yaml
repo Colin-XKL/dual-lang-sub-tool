@@ -2,6 +2,9 @@ primary_sub_conf:
   track_num: 2
   lang_code: "eng"
 
+file_extensions:
+  - "mkv"
+  - "mp4"
 secondary_sub_conf:
   track_num: 3
   lang_code: "chi"

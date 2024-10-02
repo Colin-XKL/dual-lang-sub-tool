@@ -82,6 +82,7 @@ if __name__ == "__main__":
 
     primary_sub_conf = config.get('primary_sub_conf')
     secondary_sub_conf = config.get('secondary_sub_conf')
+    file_extensions = config.get('file_extensions', ["mkv"])
     if not primary_sub_conf or not secondary_sub_conf:
         print("Missing 'primary_sub_conf' or 'secondary_sub_conf' in the YAML file.")
         exit(1)
@@ -92,7 +93,7 @@ if __name__ == "__main__":
     output_dir = os.getcwd()
     media_files = os.listdir(target_dir)
     for media in media_files:
-        if not media.endswith("mkv"):
+        if not any(media.endswith(ext) for ext in file_extensions):
             continue
         srt_a = extract_subtitles(media, primary_sub_conf["track_num"], primary_sub_conf["lang_code"], tmp_dir)
         srt_b = extract_subtitles(media, secondary_sub_conf["track_num"], secondary_sub_conf["lang_code"], tmp_dir)
