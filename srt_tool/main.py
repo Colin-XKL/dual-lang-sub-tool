@@ -30,6 +30,7 @@ def replace_newlines_with_spaces(file_path):
 
 
 def extract_subtitles(input_file_path, track_num: int, lang_code: str, output_dir: str):
+    input_file_path = os.path.abspath(input_file_path)
     base_file_name = get_base_name_without_ext(input_file_path)
     output_file_name = f"{base_file_name}.{lang_code}.srt"
     output_path = os.path.join(output_dir, output_file_name)
@@ -95,8 +96,9 @@ if __name__ == "__main__":
     for media in media_files:
         if not any(media.endswith(ext) for ext in file_extensions):
             continue
-        srt_a = extract_subtitles(media, primary_sub_conf["track_num"], primary_sub_conf["lang_code"], tmp_dir)
-        srt_b = extract_subtitles(media, secondary_sub_conf["track_num"], secondary_sub_conf["lang_code"], tmp_dir)
+        media_path = os.path.join(target_dir, media)
+        srt_a = extract_subtitles(media_path, primary_sub_conf["track_num"], primary_sub_conf["lang_code"], tmp_dir)
+        srt_b = extract_subtitles(media_path, secondary_sub_conf["track_num"], secondary_sub_conf["lang_code"], tmp_dir)
         replace_newlines_with_spaces(srt_a)
         replace_newlines_with_spaces(srt_b)
 
