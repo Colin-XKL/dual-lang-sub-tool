@@ -70,11 +70,21 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     config_path = os.path.join(args.target_dir, "dual_sub_conf.yaml")
-    with open(config_path, 'r') as file:
-        config = yaml.safe_load(file)
+    try:
+        with open(config_path, 'r') as file:
+            config = yaml.safe_load(file)
+    except yaml.YAMLError as exc:
+        print(f"Error reading YAML file: {exc}")
+        exit(1)
+    except FileNotFoundError:
+        print(f"Config file not found: {config_path}")
+        exit(1)
 
-    primary_sub_conf = config['primary_sub_conf']
-    secondary_sub_conf = config['secondary_sub_conf']
+    primary_sub_conf = config.get('primary_sub_conf')
+    secondary_sub_conf = config.get('secondary_sub_conf')
+    if not primary_sub_conf or not secondary_sub_conf:
+        print("Missing 'primary_sub_conf' or 'secondary_sub_conf' in the YAML file.")
+        exit(1)
 
     print(f"processing for all media file in {args.target_dir}...")
     target_dir = args.target_dir
