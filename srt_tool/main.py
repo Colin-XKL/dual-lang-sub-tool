@@ -63,7 +63,7 @@ def srt_merge(srt_a, srt_b, media_name, output_dir: str):
     srtmerge([srt_a, srt_b], output_file_path)
     return output_file_path
 
-
+default_whitelist_extension_list = ["mkv","mp4"]
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process media files in a specified directory.")
     parser.add_argument("target_dir", type=str, help="Directory containing media files to process.")
@@ -80,14 +80,14 @@ if __name__ == "__main__":
         print(f"Config file not found: {config_path}")
         exit(1)
 
-    primary_sub_conf = config.get('primary_sub_conf')
-    secondary_sub_conf = config.get('secondary_sub_conf')
-    file_extensions = config.get('file_extensions', ["mkv"])
+    primary_sub_conf = config.get('sencond_line_sub')
+    secondary_sub_conf = config.get('first_line_sub')
+    file_extensions = config.get('file_extensions', default_whitelist_extension_list)
     if not primary_sub_conf or not secondary_sub_conf:
-        print("Missing 'primary_sub_conf' or 'secondary_sub_conf' in the YAML file.")
+        print("Missing 'first_line_sub' or 'sencond_line_sub' in the YAML file.")
         exit(1)
 
-    print(f"processing for all media file in {args.target_dir}...")
+    print(f"processing for all media file in [{args.target_dir}]  ...")
     target_dir = args.target_dir
     tmp_dir = "/tmp/"
     output_dir = os.getcwd()
