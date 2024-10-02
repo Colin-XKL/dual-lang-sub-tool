@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument("target_dir", type=str, help="Directory containing media files to process.")
     args = parser.parse_args()
 
-    config_path = os.path.join(args.target_dir, "config.yaml")
+    config_path = os.path.join(args.target_dir, "dual_sub_conf.yaml")
     with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
 
