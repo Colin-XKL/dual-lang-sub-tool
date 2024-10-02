@@ -4,6 +4,7 @@ import subprocess
 from srtmerge import srtmerge
 import argparse
 import yaml
+import random
 
 
 def replace_newlines_with_spaces(file_path):
