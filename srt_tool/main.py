@@ -45,7 +45,11 @@ def extract_subtitles(input_file_path, track_num: int, lang_code: str, output_di
         output_path
     ]
 
-    subprocess.run(command)
+    try:
+        subprocess.run(command, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing ffmpeg command: {e}")
+        exit(1)
 
     return output_path
 
