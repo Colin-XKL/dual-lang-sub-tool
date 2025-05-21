@@ -76,6 +76,17 @@ if __name__ == "__main__":
     parser.add_argument("--check", action="store_true", help="Check a random media file in the target directory.")
     args = parser.parse_args()
 
+    if args.check:
+        media_files = [f for f in os.listdir(args.target_dir) if any(f.endswith(ext) for ext in file_extensions)]
+        if not media_files:
+            print("No media files found in the target directory.")
+            exit(1)
+        random_media = random.choice(media_files)
+        random_media_path = os.path.join(args.target_dir, random_media)
+
+        subprocess.run(["ffmpeg", "-i", random_media_path], check=False)
+        exit(0)
+
     config_path = os.path.join(args.target_dir, "dual_sub_conf.yaml")
     try:
         with open(config_path, 'r') as file:
@@ -93,18 +104,7 @@ if __name__ == "__main__":
     if not primary_sub_conf or not secondary_sub_conf:
         print("Missing 'first_line_sub' or 'sencond_line_sub' in the YAML file.")
         exit(1)
-
-    if args.check:
-        media_files = [f for f in os.listdir(args.target_dir) if any(f.endswith(ext) for ext in file_extensions)]
-        if not media_files:
-            print("No media files found in the target directory.")
-            exit(1)
-        random_media = random.choice(media_files)
-        random_media_path = os.path.join(args.target_dir, random_media)
-
-        subprocess.run(["ffmpeg", "-i", random_media_path], check=False)
-        exit(0)
-
+    
     print(f"processing for all media file in [{args.target_dir}]  ...")
     target_dir = args.target_dir
     tmp_dir = "/tmp/"
