@@ -76,6 +76,21 @@ if __name__ == "__main__":
     parser.add_argument("--check", action="store_true", help="Check a random media file in the target directory.")
     args = parser.parse_args()
 
+    config_path = os.path.join(args.target_dir, "dual_sub_conf.yaml")
+    config = {}
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, 'r') as file:
+                config = yaml.safe_load(file)
+        except yaml.YAMLError as exc:
+            print(f"Error reading YAML file: {exc}")
+            exit(1)
+    elif not args.check:
+        print(f"Config file not found: {config_path}")
+        exit(1)
+
+    file_extensions = config.get('file_extensions', default_whitelist_extension_list) if config else default_whitelist_extension_list
+
     if args.check:
         media_files = [f for f in os.listdir(args.target_dir) if any(f.endswith(ext) for ext in file_extensions)]
         if not media_files:
@@ -87,20 +102,8 @@ if __name__ == "__main__":
         subprocess.run(["ffmpeg", "-i", random_media_path], check=False)
         exit(0)
 
-    config_path = os.path.join(args.target_dir, "dual_sub_conf.yaml")
-    try:
-        with open(config_path, 'r') as file:
-            config = yaml.safe_load(file)
-    except yaml.YAMLError as exc:
-        print(f"Error reading YAML file: {exc}")
-        exit(1)
-    except FileNotFoundError:
-        print(f"Config file not found: {config_path}")
-        exit(1)
-
     primary_sub_conf =config.get('first_line_sub')
     secondary_sub_conf = config.get('sencond_line_sub')
-    file_extensions = config.get('file_extensions', default_whitelist_extension_list)
     if not primary_sub_conf or not secondary_sub_conf:
         print("Missing 'first_line_sub' or 'sencond_line_sub' in the YAML file.")
         exit(1)
