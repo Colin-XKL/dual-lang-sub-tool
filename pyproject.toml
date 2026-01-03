@@ -5,7 +5,7 @@ description = "A tool for make and fine-tune bilingual subtitles."
 authors = ["colin <Colin_XKL@outlook.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "dual_lang_sub_tool"}]
+packages = [{include = "srt_tool"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
