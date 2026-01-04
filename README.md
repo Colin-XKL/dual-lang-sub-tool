@@ -6,6 +6,23 @@ A tool for make and fine-tune bilingual subtitles.
 
 check main.py for details.
 
+## Auto Mode (New)
+
+The new auto mode automatically scans the current directory for video files, detects subtitle tracks using `ffprobe`, and extracts/merges them based on the languages you specify.
+
+Usage:
+```bash
+dual-lang-sub-tool auto --lang=zh,en
+```
+This command will:
+1. Scan for video files (`.mkv`, `.mp4`) in the current directory.
+2. Detect subtitle tracks for Chinese (`zh`) and English (`en`).
+3. Extract and merge them into a bilingual SRT file.
+
+Supported language codes include `zh`, `en`, `ja`, `ko`, `fr`, `de`, `es`.
+
+## Legacy Mode (Manual Configuration)
+
 place main.py at the same dir of your mkv/mp4 file, use `ffmpeg -i xxx.mp4` to check to subtitle stream id , and modify
 the code to update the id, the run it , and it would automaticaly do the extract, merge jobs.
 
@@ -84,7 +101,7 @@ step 4: 完成, 在目标文件夹下你应该能看到生成的srt文件, 选�
 
 - [x] srt merge
 - [x] auto extract srt from certain stream
-- [ ] auto choose stream to extract subtitle
+- [x] auto choose stream to extract subtitle
 
 ## LICENSE
 
